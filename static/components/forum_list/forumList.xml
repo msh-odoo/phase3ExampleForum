@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="ForumList">
+        <div class="o_forum_list">
+            <ForumItem t-foreach="forums" t-as="forumItem" t-key="forumItem_index" forumItem="forumItem"/>
+        </div>
+    </t>
+</templates>

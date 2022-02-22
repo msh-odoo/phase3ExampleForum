@@ -1,0 +1,48 @@
+{
+    "forums": [
+        {
+            "id": 1,
+            "name": "Odoo Questions",
+            "image": "/static/img/odoo1.png",
+            "description": "This contains general odoo questions"
+        },
+        {
+            "id": 2,
+            "name": "Odoo Development Guide",
+            "image": "/static/img/odoo2.png",
+            "description": "This contains odoo development guide"
+        },
+        {
+            "id": 3,
+            "name": "Odoo Functional",
+            "image": "/static/img/odoo3.png",
+            "description": "This contains functional stuff"
+        },
+        {
+            "id": 4,
+            "name": "Odoo Technical",
+            "image": "static/img/odoo4.png",
+            "description": "You can check technical details here"
+        },
+        {
+            "id": 5,
+            "name": "Odoo Ideas",
+            "image": "static/img/odoo5.png",
+            "description": "You can give your ideas/feedbacks here"
+        }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "name": "Footwear"
+        },
+        {
+            "id": 2,
+            "name": "Ladies Footwear"
+        },
+        {
+            "id": 3,
+            "name": "Gents Footwear"
+        }
+    ]
+}
