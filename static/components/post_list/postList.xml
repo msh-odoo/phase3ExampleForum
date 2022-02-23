@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="PostList">
+        <div class="o_post_list">
+            <ul>
+                <li t-foreach="datas" t-as="post" t-key="post.id">
+                    <a href="#"><t t-out="post.name"/></a>
+                </li>
+            </ul>
+        </div>
+    </t>
+</templates>

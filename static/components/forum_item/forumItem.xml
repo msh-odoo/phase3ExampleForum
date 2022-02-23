@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
     <t t-name="ForumItem">
-        <div class="o_forum" t-att-data-id="props.forumItem.id">
-            <img t-att-src="props.forumItem.image" />
+        <div class="o_forum" t-ref="forum" t-att-data-id="props.forumItem.id" t-on-click.stop="_onClickForum">
+            <img t-attf-src="data:image/png;base64, {{props.forumItem.image_512}}" />
             <div>
                 <h4><t t-out="props.forumItem.name"/></h4>
                 <div>
-                    <t t-out="props.forumItem.description"/>
+                    <t t-out="getMarkupValue"/>
                 </div>
             </div>
         </div>

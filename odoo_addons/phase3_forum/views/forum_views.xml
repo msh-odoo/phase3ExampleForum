@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="forum_forum_tree" model="ir.ui.view">
+            <field name="name">forum.forum.tree</field>
+            <field name="model">forum.forum</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="forum_forum_form" model="ir.ui.view">
+            <field name="name">forum.forum.form</field>
+            <field name="model">forum.forum</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button class="btn-primary" states="unpublish" name="action_publish" type="object" string="Publish" />
+                        <button class="btn-primary" attrs="{'invisible': [('state', '!=', 'publish')]}" name="action_unpublish" type="object" string="Unpublish" />
+                        <field name="state" widget="statusbar" statusbar_visible="new,confirm,cancel"/>
+                    </header>
+                    <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Forum Title"/>
+                            <h1><field name="name" default_focus="1" placeholder="e.g. Odoo Help"/></h1>
+                        </div>
+                        <notebook>
+                            <page name="posts" string="Posts">
+                                <group>
+                                    <field name="post_ids">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="author_id" widget="many2many_tags"/>
+                                            <field name="active" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Description" name="description">
+                                <field name="description"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_forums">
+   		    <field name="name">Forums</field>
+            <field name="res_model">forum.forum</field>
+ 		    <field name="view_mode">tree,form</field>
+ 	    </record>
+
+        <menuitem name="Forum Training" id="menu_openacademy_root"/>
+        <menuitem name="Forum" id="menu_forum_action" parent="menu_openacademy_root" action="action_forums"/>
+
+    </data>
+</odoo>

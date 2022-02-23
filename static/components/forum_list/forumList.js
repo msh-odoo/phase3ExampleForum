@@ -6,8 +6,7 @@ const { Component, onWillStart } = owl;
 export class ForumList extends Component {
     setup() {
         onWillStart(async () => {
-            const datas = await rpc("/get_forums", {});
-            this.forums = JSON.parse(datas).forums;
+            this.forums = await rpc("/get_forums", {});
         });
     }
 }

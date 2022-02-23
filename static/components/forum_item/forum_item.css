@@ -1,3 +1,7 @@
+/* TODO: Instead of writing css use scss */
+.o_forum {
+    cursor: pointer;
+}
 .o_forum > img {
     height: 200px;
     width: 200px;

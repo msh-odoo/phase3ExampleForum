@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="forum_post_tree" model="ir.ui.view">
+            <field name="name">forum.post.tree</field>
+            <field name="model">forum.post</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="author_id"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="forum_post_form" model="ir.ui.view">
+            <field name="name">forum.post.form</field>
+            <field name="model">forum.post</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Forum Title"/>
+                            <h1><field name="name" default_focus="1" placeholder="e.g. Odoo Help"/></h1>
+                        </div>
+                        <notebook>
+                            <page name="answers" string="Answers">
+                                <group>
+                                    <field name="answer_ids">
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="answer"/>
+                                            <field name="author_id"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_posts">
+   		    <field name="name">Posts</field>
+            <field name="res_model">forum.post</field>
+ 		    <field name="view_mode">tree,form</field>
+ 	    </record>
+
+        <menuitem name="Posts" id="menu_post_action" parent="menu_openacademy_root" action="action_posts"/>
+
+    </data>
+</odoo>

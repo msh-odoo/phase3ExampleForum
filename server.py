@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import io
-# import copy
 import hashlib
-from http.client import responses
 import json
 import logging
 import os
@@ -12,17 +10,16 @@ from collections import OrderedDict
 
 import werkzeug
 from werkzeug.exceptions import HTTPException
-# from werkzeug.exceptions import NotFound
 try:
     from werkzeug.middleware.shared_data import SharedDataMiddleware
 except ImportError:
     from werkzeug.wsgi import SharedDataMiddleware
 from werkzeug.routing import Map
 from werkzeug.routing import Rule
-# from werkzeug.urls import url_parse
-# from werkzeug.utils import redirect
 from werkzeug.wrappers import Request
 from werkzeug.wrappers import Response
+
+from odoo_xmlrpc import OdooXmlrpc
 
 _logger = logging.getLogger(__name__)
 
@@ -36,8 +33,11 @@ class Application:
                 Rule("/", endpoint="index"),
                 Rule("/load-qweb", endpoint="loadQweb"),
                 Rule("/get_forums", endpoint="getForums"),
+                Rule("/get_posts", endpoint="getPosts"),
             ]
         )
+        self.odooXmlrpc = OdooXmlrpc('http://localhost:8069', 'odoo15_forum')
+        self.odooXmlrpc.login('admin', 'admin')
 
     def __call__(self, environ, start_response):
         return self.dispatch(environ, start_response)
@@ -65,7 +65,8 @@ class Application:
             "static/app/app.xml",
             "static/components/header/header.xml",
             "static/components/forum_item/forumItem.xml",
-            "static/components/forum_list/forumList.xml"
+            "static/components/forum_list/forumList.xml",
+            "static/components/post_list/postList.xml",
         ]
         concatedXml = self._concat_xml(files)
         concatedXml = concatedXml.decode("utf-8")
@@ -149,9 +150,11 @@ class Application:
         return etree.tostring(root, encoding='utf-8') if root is not None else b''
 
     def getForums(self, request, **kwargs):
-        datas = ""
-        with open("data/data.json", "r") as f:
-            datas = f.read()
+        # datas = ""
+        # with open("data/data.json", "r") as f:
+        #     datas = f.read()
+
+        datas = self.odooXmlrpc.search_read('forum.forum', [], ['name', 'description', 'image_512'])
 
         response = {
             'jsonrpc': '2.0',
@@ -163,6 +166,23 @@ class Application:
             body, status=200,
             headers=[('Content-Type', mime), ('Content-Length', len(body))]
         )
+
+    def getPosts(self, request, **kw):
+        data = json.loads(request.data)
+        requestParams = data.get('params')
+        domain = []
+        if requestParams and requestParams.get('forum_id'):
+            domain = [('forum_id', 'in', [requestParams['forum_id']])]
+
+        datas = self.odooXmlrpc.search_read('forum.post', domain, ['name', 'author_id', 'forum_id'])
+        mime = 'application/json'
+        result = {'result': datas}
+        body = json.dumps(result)
+        return Response(
+            body, status=200,
+            headers=[('Content-Type', mime), ('Content-Length', len(body))]
+        )
+
 
 def create_app():
     app = Application()

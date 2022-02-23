@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_forum_forum_training_base_user,forum.training.base.user,model_forum_forum,base.group_user,1,1,1,1
+access_forum_post_training_base_user,forum.post.training.base.user,model_forum_post,base.group_user,1,1,1,1
+access_post_answer_training_base_user,post.answer.training.base.user,model_post_answer,base.group_user,1,1,1,1
