@@ -8,3 +8,8 @@
 .o_post_list li a {
     text-decoration: none;
 }
+.o_post_list img {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}

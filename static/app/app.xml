@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
+
+    <t t-name="Content">
+        <div class="o_content">
+            <t t-slot="content"/>
+        </div>
+    </t>
+
     <t t-name="Forum">
         <div class="o_forum_app" t-on-change-screen="_onChangeScreen">
-            <Header />
-            <t t-if="state.currentScreen === 'forumList'">
+            <Header>
+                <t t-set-slot="searchInput">
+                    <!-- <span t-out="state.currentScreen._name"/> -->
+                    <input t-ref="searchInput" type="text" t-attf-placeholder="Search {{state.currentScreen._name}}"/>
+                </t>
+            </Header>
+            <Content>
+                <t t-set-slot="content">
+                    <t t-component="state.currentScreen" t-props="state.params" />
+                </t>
+            </Content>
+            <!-- <t t-if="state.currentScreen === 'forumList'">
                 <ForumList />
             </t>
             <t t-elif="state.currentScreen === 'postList'">
                 <PostList params="state.params"/>
-            </t>
+            </t> -->
         </div>
     </t>
 </templates>

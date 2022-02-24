@@ -23,6 +23,9 @@
                             <label for="name" string="Forum Title"/>
                             <h1><field name="name" default_focus="1" placeholder="e.g. Odoo Help"/></h1>
                         </div>
+                        <group name="author">
+                            <field name="author_id"/>
+                        </group>
                         <notebook>
                             <page name="answers" string="Answers">
                                 <group>

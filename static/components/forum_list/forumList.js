@@ -13,3 +13,4 @@ export class ForumList extends Component {
 
 ForumList.template = "ForumList";
 ForumList.components = { ForumItem };
+ForumList._name = "Forum List";

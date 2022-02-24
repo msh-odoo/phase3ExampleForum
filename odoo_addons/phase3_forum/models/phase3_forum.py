@@ -23,6 +23,7 @@ class ForumPost(models.Model):
     name = fields.Char()
     forum_id = fields.Many2one('forum.forum')
     author_id = fields.Many2one('res.users')
+    avatar_512 = fields.Image(related="author_id.avatar_512", string="Avatar 512")
     answer_ids = fields.One2many('post.answer', 'post_id')
     active = fields.Boolean(default=True)
 

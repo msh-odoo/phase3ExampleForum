@@ -26,6 +26,9 @@ export class ForumItem extends Component {
         const forumID = ev.currentTarget.getAttribute('data-id');
         const changeScreenEvent = new CustomEvent('change-screen', { bubbles: true, detail: { screenName: 'postList', params: { forumID: parseInt(forumID) } }}, );
         this.forumRef.el.dispatchEvent(changeScreenEvent);
+        // const postList = this.env.allComponents['postList'];
+        // this.env.state.currentScreen = postList;
+        // this.env.state.params = { forumID: parseInt(forumID) };
     }
 }
 

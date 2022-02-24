@@ -4,6 +4,9 @@
         <div class="o_post_list">
             <ul>
                 <li t-foreach="datas" t-as="post" t-key="post.id">
+                    <a class="position-relative rounded-circle" href="">
+                        <img t-attf-src="data:image/png;base64, {{post.avatar_512}}" />
+                    </a>
                     <a href="#"><t t-out="post.name"/></a>
                 </li>
             </ul>

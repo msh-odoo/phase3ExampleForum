@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import base64
 import io
 import hashlib
 import json
@@ -34,6 +35,7 @@ class Application:
                 Rule("/load-qweb", endpoint="loadQweb"),
                 Rule("/get_forums", endpoint="getForums"),
                 Rule("/get_posts", endpoint="getPosts"),
+                Rule("/get_image/<string:model>/<int:id>/<string:field>/<int:width>x<int:height>", endpoint="getImage"),
             ]
         )
         self.odooXmlrpc = OdooXmlrpc('http://localhost:8069', 'odoo15_forum')
@@ -174,7 +176,7 @@ class Application:
         if requestParams and requestParams.get('forum_id'):
             domain = [('forum_id', 'in', [requestParams['forum_id']])]
 
-        datas = self.odooXmlrpc.search_read('forum.post', domain, ['name', 'author_id', 'forum_id'])
+        datas = self.odooXmlrpc.search_read('forum.post', domain, ['name', 'author_id', 'forum_id', 'avatar_512'])
         mime = 'application/json'
         result = {'result': datas}
         body = json.dumps(result)
@@ -182,7 +184,6 @@ class Application:
             body, status=200,
             headers=[('Content-Type', mime), ('Content-Length', len(body))]
         )
-
 
 def create_app():
     app = Application()
