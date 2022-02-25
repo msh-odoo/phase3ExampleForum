@@ -2,17 +2,17 @@ import { rpc } from "../core/rpc.js";
 import { Header } from "../components/header/header.js";
 import { ForumList } from "../components/forum_list/forumList.js";
 import { PostList } from "../components/post_list/postList.js";
+import { AddPost } from "../components/add_post/add_post.js";
 
-const { Component, mount, useState, useSubEnv, useExternalListener, useRef, whenReady } = owl;
+const { Component, EventBus, mount, useState, useSubEnv, useChildSubEnv, useExternalListener, useRef, whenReady } = owl;
 
 // Done: t-component
 // Done: t-slot
-// DOne: useSubEnv, useExternalListener
+// Done: useSubEnv, useChildSubEnv, useExternalListener
+// Done: EventBus
+// Done: Environment
+// Done: t-model
 
-// TODO: useChildSubEnv
-// TODO: t-model
-// TODO: Environment
-// TODO: useSubEnv, useChildSubEnv, useExternalListener
 
 // Wishlist
 // =========
@@ -25,17 +25,20 @@ export class Content extends Component {
 }
 
 Content.template = "Content";
-Content.components = { ForumList, PostList };
+Content.components = { ForumList, PostList, AddPost };
 
 
 class Forum extends Component {
     setup() {
-        this.allComponents = { 'forumList': ForumList, 'postList': PostList };
+        this.allComponents = { 'forumList': ForumList, 'postList': PostList, 'addPost': AddPost };
         const currentComp = this.allComponents['forumList'];
         this.state = useState({ currentScreen: currentComp, params: {}});
         this.searchInput = useRef('searchInput');
-        useExternalListener(window, 'click', this._onClickWindow);
+        // useExternalListener(window, 'click', this._onClickWindow);
         // useSubEnv({ state: this.state, allComponents: this.allComponents });
+        useSubEnv({ refreshForum: true });
+        useChildSubEnv({ myFlag: true });
+        this.env.bus.addEventListener('change-screen', this._onChangeScreen.bind(this));
     }
 
     // ---------------------------------------
@@ -57,6 +60,9 @@ class Forum extends Component {
     _onClickWindow(ev) {
         this.searchInput.el.focus();
     }
+    _onNewPost() {
+        this.env.bus.trigger('change-screen', { screenName: 'addPost'});
+    }
 }
 
 Forum.template = "Forum";
@@ -67,7 +73,8 @@ async function setup() {
     const templates = await rpc("/load-qweb", {});
     // const templateFetch = await fetch("static/app/app.xml");
     // const templates = await templateFetch.text();
-    const env = {};
+    const bus = new EventBus();
+    const env = { bus };
     mount(Forum, document.body, { templates, env });
 }
 

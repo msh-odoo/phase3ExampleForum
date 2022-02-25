@@ -13,6 +13,10 @@ export class ForumItem extends Component {
         return markup(this.props.forumItem.description);
     }
 
+    get getMarkupPrice() {
+        return markup(this.props.forumItem.price);
+    }
+
     // ---------------------------------------
     // Handlers
     // ---------------------------------------

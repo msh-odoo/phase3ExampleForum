@@ -8,6 +8,9 @@
                 <div>
                     <t t-out="getMarkupValue"/>
                 </div>
+                <div>
+                    <t t-out="getMarkupPrice"/>
+                </div>
             </div>
         </div>
     </t>

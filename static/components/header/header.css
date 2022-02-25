@@ -11,7 +11,7 @@
     width: auto;
 }
 .o_header .o_menus {
-    width: 100%;
+    width: 65%;
 }
 .o_header .o_menus ul {
     list-style: none;
@@ -21,4 +21,12 @@
     margin: 10px;
     text-decoration: none;
     color: white;
+}
+
+.o_header .o_new_post {
+    float: right;
+    padding: 10px;
+    color: #fff;
+    background-color: #017e84;
+    border-color: #017e84;
 }

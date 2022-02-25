@@ -9,6 +9,7 @@ class Forum(models.Model):
     post_ids = fields.One2many('forum.post', 'forum_id')
     state = fields.Selection([('publish', 'Publish'), ('unpublish', 'Unpublish')])
     active = fields.Boolean(default=True)
+    price = fields.Integer()
 
     def action_publish(self):
         pass

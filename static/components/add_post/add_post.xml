@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="AddPost">
+        <div class="o_add_post" t-ref="o_add_post">
+            <div>
+                <label for="name">Name</label>
+                <input t-model="values.name" type="text" name="name" />
+            </div>
+            <div>
+                <label for="details">Details</label>
+                <textarea t-model="values.details" name="details" />
+            </div>
+            <div>
+                <label for="name">State</label>
+                <select t-model="values.state" name="state">
+                    <option value="draft">Draft</option>
+                    <option value="done">Done</option>
+                    <option value="cancel">Cancel</option>
+                </select>
+            </div>
+            <div>
+                <span t-out="this.values.name"/>
+                <span t-out="this.values.details"/>
+                <span t-out="this.values.state"/>
+            </div>
+            <div>
+                <button class="o_save_post" t-on-click.stop="_onSavePost">Save Post</button>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -10,6 +10,13 @@
     <t t-name="Forum">
         <div class="o_forum_app" t-on-change-screen="_onChangeScreen">
             <Header>
+                <t t-set-slot="extra_buttons">
+                    <t t-if="state.currentScreen.name === 'PostList'">
+                        <div>
+                            <button class="o_new_post" t-on-click.stop="_onNewPost">New Post</button>
+                        </div>
+                    </t>
+                </t>
                 <t t-set-slot="searchInput">
                     <!-- <span t-out="state.currentScreen._name"/> -->
                     <input t-ref="searchInput" type="text" t-attf-placeholder="Search {{state.currentScreen._name}}"/>

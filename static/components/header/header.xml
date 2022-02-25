@@ -10,6 +10,7 @@
                     <li><a href="/blog">Blog</a></li>
                 </ul>
             </div>
+            <t t-slot="extra_buttons"></t>
             <div class="o_searchbar">
                 <t t-slot="searchInput"/>
                 <button name="o_search">Search</button>

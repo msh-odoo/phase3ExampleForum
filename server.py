@@ -69,6 +69,7 @@ class Application:
             "static/components/forum_item/forumItem.xml",
             "static/components/forum_list/forumList.xml",
             "static/components/post_list/postList.xml",
+            "static/components/add_post/add_post.xml",
         ]
         concatedXml = self._concat_xml(files)
         concatedXml = concatedXml.decode("utf-8")
@@ -156,7 +157,7 @@ class Application:
         # with open("data/data.json", "r") as f:
         #     datas = f.read()
 
-        datas = self.odooXmlrpc.search_read('forum.forum', [], ['name', 'description', 'image_512'])
+        datas = self.odooXmlrpc.search_read('forum.forum', [], ['name', 'description', 'image_512', 'price'])
 
         response = {
             'jsonrpc': '2.0',
